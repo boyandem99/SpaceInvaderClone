@@ -1,25 +1,40 @@
 extends CharacterBody2D
 
-#this main variable is used to get the main node where the game is taking place. replace "testingRoom" with the main node of the scene
-@onready var main = get_tree().get_root().get_node("testingRoom")
-
+@onready var main = get_tree().get_current_scene()
 @export var speed: float = 200
 @onready var projectile = load("res://scenes/bullet.tscn")
-
 @onready var timer: Timer = $Timer
 
 var canShoot: bool = true
-
+var direction = Vector2.ZERO
+var min_x: float
+var max_x: float
+var min_y: float
+var max_y: float
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot") and canShoot == true:
 		shoot()
 func _physics_process(delta: float) -> void:
-	var input_Direction = Vector2(Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),Input.get_action_strength("move_down") -Input.get_action_strength("move_up")).normalized()
-
-	
-	velocity = input_Direction * speed
-	
+	if Input.is_action_just_pressed("move_right"):
+		direction.x = 1
+	elif Input.is_action_just_pressed("move_left"):
+		direction.x = -1
+	if Input.is_action_just_released("move_right") and direction.x == 1:
+		direction.x = 0
+	elif Input.is_action_just_released("move_left") and direction.x == -1:
+		direction.x = 0
+	direction = direction.normalized()
+	velocity = direction * speed
 	move_and_slide()
+	global_position.x = clamp(global_position.x, min_x, max_x)
+	global_position.y = clamp(global_position.y, min_y, max_y)
+func _ready() -> void:
+	timer.wait_time = 0.2
+	var parent_size = get_parent().get_rect().size
+	min_x = 0
+	max_x = parent_size.x
+	min_y = 0
+	max_y = parent_size.y
 func shoot():
 	canShoot = false
 	timer.start()
@@ -28,7 +43,6 @@ func shoot():
 	instance.spawnPos = Vector2(global_position.x, global_position.y - 50)
 	instance.spawnRot = rotation
 	main.add_child.call_deferred(instance)
-
 
 func _on_timer_timeout() -> void:
 	canShoot = true
