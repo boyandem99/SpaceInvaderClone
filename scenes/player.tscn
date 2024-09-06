@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dsb5i63ivh8gf"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_ny1w6"]
-[ext_resource type="Texture2D" uid="uid://cpi3qk3ah6cnw" path="res://Sprite/griffin sprite with no backgound.png" id="2_unuqk"]
+[ext_resource type="Texture2D" uid="uid://drpcqtocp2qmc" path="res://Sprite/griffin with outline.png" id="2_2dn21"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sf2xt"]
 size = Vector2(67, 20)
@@ -11,12 +11,21 @@ collision_mask = 2
 script = ExtResource("1_ny1w6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_unuqk")
+texture = ExtResource("2_2dn21")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -19)
 shape = SubResource("RectangleShape2D_sf2xt")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="deathTimer" type="Timer" parent="."]
+process_mode = 3
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="deathTimer" to="." method="_on_death_timer_timeout"]

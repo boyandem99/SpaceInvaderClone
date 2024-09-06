@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpndn4es8ytdc"]
+
+[ext_resource type="Texture2D" uid="uid://ctd2q81o8c8dl" path="res://icon.svg" id="1_qdow4"]
+[ext_resource type="Script" path="res://scripts/testing_enemy.gd" id="2_f6y1a"]
+
+[node name="testing enemy" type="Sprite2D"]
+rotation = 3.14159
+texture = ExtResource("1_qdow4")
+script = ExtResource("2_f6y1a")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

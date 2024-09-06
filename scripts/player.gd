@@ -4,6 +4,9 @@ extends CharacterBody2D
 @export var speed: float = 200
 @onready var projectile = load("res://scenes/bullet.tscn")
 @onready var timer: Timer = $Timer
+@onready var death_timer: Timer = $deathTimer
+
+var lifes = 3
 
 var canShoot: bool = true
 var direction = Vector2.ZERO
@@ -29,7 +32,6 @@ func _physics_process(delta: float) -> void:
 	global_position.x = clamp(global_position.x, min_x, max_x)
 	global_position.y = clamp(global_position.y, min_y, max_y)
 func _ready() -> void:
-	timer.wait_time = 0.2
 	var parent_size = get_parent().get_rect().size
 	min_x = 0
 	max_x = parent_size.x
@@ -46,3 +48,15 @@ func shoot():
 
 func _on_timer_timeout() -> void:
 	canShoot = true
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	lifes = lifes - 1
+	death_timer.start()
+	if lifes == 0:
+		print("game over")
+	else:
+		get_tree().paused = true
+
+
+func _on_death_timer_timeout() -> void:
+	get_tree().paused = false

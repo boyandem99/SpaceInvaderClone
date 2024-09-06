@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://c7rjt5eyaujmo"]
+[gd_scene load_steps=3 format=3 uid="uid://c7rjt5eyaujmo"]
+
+[ext_resource type="PackedScene" uid="uid://dsb5i63ivh8gf" path="res://scenes/player.tscn" id="1_u4pus"]
+[ext_resource type="PackedScene" uid="uid://dpndn4es8ytdc" path="res://scenes/testing_enemy.tscn" id="2_fu7ob"]
 
 [node name="testingRoom" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_u4pus")]
+position = Vector2(-2, 12)
+
+[node name="testing enemy" parent="." instance=ExtResource("2_fu7ob")]
+position = Vector2(111, -217)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2, 12)
