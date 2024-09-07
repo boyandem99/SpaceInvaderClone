@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://di25ai5lhxs56"]
+
+[ext_resource type="PackedScene" uid="uid://dsb5i63ivh8gf" path="res://scenes/player.tscn" id="1_7qeoa"]
+[ext_resource type="PackedScene" uid="uid://dpndn4es8ytdc" path="res://scenes/testing_enemy.tscn" id="2_kou13"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_7qeoa")]
+position = Vector2(-114, 8)
+
+[node name="testing enemy" parent="." instance=ExtResource("2_kou13")]
+position = Vector2(97, -222)
+
+[node name="Camera2D" type="Camera2D" parent="."]

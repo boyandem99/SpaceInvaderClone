@@ -3,3 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://pe5maw23dm0l" path="res://scenes/main.tscn" id="1_qb5jh"]
 
 [node name="Main" instance=ExtResource("1_qb5jh")]
+
+[node name="Sprite2D2" parent="ParallaxBackground/Cloud" index="1"]
+visible = true

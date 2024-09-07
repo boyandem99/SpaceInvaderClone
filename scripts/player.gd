@@ -29,14 +29,14 @@ func _physics_process(delta: float) -> void:
 	direction = direction.normalized()
 	velocity = direction * speed
 	move_and_slide()
-	global_position.x = clamp(global_position.x, min_x, max_x)
-	global_position.y = clamp(global_position.y, min_y, max_y)
-func _ready() -> void:
-	var parent_size = get_parent().get_rect().size
-	min_x = 0
-	max_x = parent_size.x
-	min_y = 0
-	max_y = parent_size.y
+	#global_position.x = clamp(global_position.x, min_x, max_x)
+	#global_position.y = clamp(global_position.y, min_y, max_y)
+#func _ready() -> void:
+	#var parent_size = get_parent().get_rect().size
+	#min_x = 0
+	#max_x = parent_size.x
+	#min_y = 0
+	#max_y = parent_size.y
 func shoot():
 	canShoot = false
 	timer.start()
